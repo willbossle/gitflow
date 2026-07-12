@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Tarefas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Lista de Tarefas</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Criar Nova Tarefa</a>
+        </nav>
+    </header>
+    <main>
+        <section id="task-list">
+            <h2>Suas Tarefas</h2>
+            <ul>
+                {% for task in tasks %}
+                <li id="task-{{ task.id }}">
+                    <input type="text" value="{{ task.title }}" data-id="{{ task.id }}" class="task-title">
+                    <input type="checkbox" {% if task.done %}checked{% endif %} data-id="{{ task.id }}" class="task-done">
+                    <button onclick="updateTask({{ task.id }})">Atualizar</button>
+                    <button onclick="deleteTask({{ task.id }})">Deletar</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

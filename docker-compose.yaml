@@ -1,0 +1,36 @@
+version: '3'
+services:
+  app-flask-api:
+    container_name: tasks-api-flask
+    image: willbossle/api-flask:latest
+    ports:
+      - "5000:5000"
+    networks:
+      - api-flask-net
+    volumes:
+      - type: volume
+        source: dados
+        target: /dados
+    deploy:
+      labels:
+        com.tasks-api-flask.description: "Aplicação Teste."
+      replicas: 5
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 60s
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
+      resources:
+        reservations:
+          cpus: '0.5'
+          memory: 128M
+        limits:
+          cpus: '0.75'
+          memory: '256M'
+networks:
+  giropops:
+    driver: bridge
