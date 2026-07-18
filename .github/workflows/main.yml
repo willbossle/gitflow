@@ -1,0 +1,17 @@
+name: primeira-pipeline
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+jobs:
+  primeiro-job:
+    name: "Meu Primeiro Job"
+    runs-on: ubuntu-slim
+    steps:
+      - name: "Minha Primeira Acao"
+        run: echo "Ola Mundo"
+      - name: "Segunda Acao"
+        run: |
+          echo "Voce criou o seu primeiro workflow"
+          echo "Parabens"
+          
